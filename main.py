@@ -13,10 +13,11 @@ from langchain.agents import AgentType
 from openai import OpenAI
 
 
-# Get the service_account_file from secrets
-service_account_file = service_account.Credentials.from_service_account_info(
+# Get the service account credentials from secrets
+credentials = service_account.Credentials.from_service_account_info(
     st.secrets["gcp_service_account"]
 )
+
 # Get OpenAI API key
 openai_api_key = st.secrets['OPENAI_API_KEY']
 openai = OpenAI(api_key=openai_api_key)
@@ -36,7 +37,10 @@ table_name3 = 'dim_secondary_forecast_branch'
 table_names = (table_name1, table_name2, table_name3)
 
 # SQLAlchemy connection
-sqlalchemy_url = f'bigquery://{project_id}?credentials_path={service_account_file}'
+engine = create_engine(
+    f'bigquery://{project_id}/{dataset_id}',
+    credentials_info=st.secrets["gcp_service_account"]
+)
 
 # Create an Engine and SQLDatabaseToolkit 
 try:
