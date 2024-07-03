@@ -45,7 +45,7 @@ table_name3 = 'dim_secondary_forecast_branch'
 table_names = (table_name1, table_name2, table_name3)
 
 # SQLAlchemy connection
-sqlalchemy_url = f'bigquery://{project_id}'
+sqlalchemy_url = f'bigquery://{project_id}?credentials_path={service_account_file}'
 
 # Create an Engine and SQLDatabaseToolkit 
 try:
