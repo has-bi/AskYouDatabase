@@ -11,15 +11,14 @@ from langchain_openai import ChatOpenAI
 from langchain.prompts.prompt import PromptTemplate
 from langchain.agents import AgentType
 from openai import OpenAI
-import json
 import tempfile
-import base64
+import json
 
 
-# Decode the service account info
-service_account_file = service_account.Credentials.from_service_account_info(
-    st.secrets["gcp_service_account"]
-)
+# Get the service account credentials from secrets
+service_account_info = st.secrets["gcp_service_account"]
+credentials = service_account.Credentials.from_service_account_info(service_account_info)
+
 # Get OpenAI API key
 openai_api_key = st.secrets['OPENAI_API_KEY']
 openai = OpenAI(api_key=openai_api_key)
@@ -37,6 +36,11 @@ table_name1 = 'fact_secondary_sales'
 table_name2 = 'dim_secondary_target_branch'
 table_name3 = 'dim_secondary_forecast_branch'
 table_names = (table_name1, table_name2, table_name3)
+
+# Save service account credentials to a temporary file
+with tempfile.NamedTemporaryFile(delete=False, suffix='.json') as temp_file:
+    temp_file.write(json.dumps(service_account_info).encode())
+    service_account_file = temp_file.name
 
 # SQLAlchemy connection
 sqlalchemy_url = f'bigquery://{project_id}?credentials_path={service_account_file}'
