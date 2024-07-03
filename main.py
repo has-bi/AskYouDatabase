@@ -11,14 +11,12 @@ from langchain_openai import ChatOpenAI
 from langchain.prompts.prompt import PromptTemplate
 from langchain.agents import AgentType
 from openai import OpenAI
-import tempfile
-import json
 
 
-# Get the service account credentials from secrets
-service_account_info = st.secrets["gcp_service_account"]
-credentials = service_account.Credentials.from_service_account_info(service_account_info)
-
+# Get the service_account_file from secrets
+service_account_file = service_account.Credentials.from_service_account_info(
+    st.secrets["gcp_service_account"]
+)
 # Get OpenAI API key
 openai_api_key = st.secrets['OPENAI_API_KEY']
 openai = OpenAI(api_key=openai_api_key)
