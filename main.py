@@ -11,10 +11,22 @@ from langchain.prompts.prompt import PromptTemplate
 from langchain.agents import AgentType
 from openai import OpenAI
 import json
+import tempfile
+import base64
 
 
-# Set environment variables for Google Cloud and OpenAI
-service_account_file = json.loads(st.secrets["SERVICE_ACCOUNT_JSON"])
+# Decode the service account info
+service_account_json = json.loads(base64.b64decode(st.secrets["SERVICE_ACCOUNT_BASE64"]).decode())
+
+# Create a temporary file to store the service account info
+with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.json') as temp_file:
+    json.dump(service_account_json, temp_file)
+    service_account_file = temp_file.name
+    
+# Set environment variables
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = service_account_file
+
+# Get OpenAI API key
 openai_api_key = st.secrets['OPENAI_API_KEY']
 openai = OpenAI(api_key=openai_api_key)
 
@@ -33,7 +45,7 @@ table_name3 = 'dim_secondary_forecast_branch'
 table_names = (table_name1, table_name2, table_name3)
 
 # SQLAlchemy connection
-sqlalchemy_url = f'bigquery://{project_id}?credentials_path={service_account_file}'
+sqlalchemy_url = f'bigquery://{project_id}'
 
 # Create an Engine and SQLDatabaseToolkit 
 try:
@@ -193,3 +205,5 @@ if prompt := st.chat_input():
     st.chat_message("assistant").write(tabluar_data)
     st.session_state.messages.append({"role": "assistant", "content": descriptive_result})
     st.chat_message("assistant").write(descriptive_result)
+
+os.unlink(service_account_file)

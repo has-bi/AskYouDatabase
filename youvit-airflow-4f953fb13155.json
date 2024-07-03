@@ -1,0 +1,13 @@
+{
+  "type": "service_account",
+  "project_id": "youvit-airflow",
+  "private_key_id": "4f953fb1315550e6943e1af3a7ab1d0fccac8ae5",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQDVbea6VDqLy3yv\nfKVXsXVmbzBUyPzbLJWKgd9/3egUZTIJBAscEPXCX/uZJ8s/BtVeONKkMzBtMZBn\nSFbOQ35KWIP4gqXCnzZfku0Yk/SUyy6OchQLRIWk/JvGOShubDxU27pK/6C4dX/o\n2EKUsIGXA3PsMfmkyJbWRSyjMhvDaIrMChC2NiNyiy6Jqmi6TO2fJnu+aJRYZlbn\nJaT4WxkXBapuoGO8Q+3Kp1fmvUt5wpH4lPgBZUgmhzPANw9FH2NY74mGH8nsLLTn\ncRZ5dCqjrEEEypNXvQQRwEQ1mr9Ux2ZLnVgXxOQT/Bnh8+j5nUwRXdfJ/Z5AaS4J\npPiqHWJTAgMBAAECggEATGYUTwOil3MGVX0NZLgx2bKYfukZVk191EBMJGXnUxGs\nWPzZCzlo96TLF9ZeU1fbXeiCQmPOhG/XDJmg9SHE3dEUoIsH0gSS/qBF/ePMi8y1\nhCkC0su6+UWxb0H7npdg+1FSPNGHkzAAUvXC053hLZD/WH/FKL7i+510bpCbzpUA\np5xQ8zxS1XWRbq0GbcdnsB3nCVU1E306pOBPAxKnJbSNV/QXgsIeHDRZA4VMyWOO\noURkceb1v9LRqDxatVJbJ4X3VEEnQ4IxNO1agRJIsSPsqSVNcecy/RC+YMSiIxBK\n1ESArAZX4AQqm9Oze3Fg0b9FaO6N79VOAy3epnZ9aQKBgQDtrAfQoU3BLXor5/Yu\n0DZe0IjszfiELjZw8TJxMrF5x6dsq95EK7DGR0qmcIToMM2gn4W/Em3xErpHulM6\nRnWAeEyJ4kshZ31MQvM3l6oGR0V/LjgOkCSgeics36BXlA9EF7KOyTp7gjqmLVom\nCTMwn5PTh9CEKzIklCodahRRqwKBgQDl40l0BjSqmYYzMdolUFsPmcmVNhbOU/eq\nRMVdplvGsGYzio33vzf0iEBVu8A0uZ5NqdgJNGtZNSdPTbtWLJOyMs+4JRJ6Gb0M\nBD9e14X5hmm3dEjXqw7GDVXHSwhplBf76nkQLV9HOPdeb+5Ki9YQ//uDgCdXcG9M\nMap66WDZ+QKBgCypJfLLTMwfGpUDipwzXfQlJYWyEp/r+yjv+fWRfA4ROWHPTf3r\nY9VuchWikSb8fLdRIpXMBcLGLSDrX1ZVBSF1+ZPzZQDK7J2W+xMYOcfiPqnuanQ6\nG9fX/GKPRxcN6Gx4M4JnR8kLqK+vWABLvEXHxsR6AfHEGDENcniChXzvAoGAGvCH\nqxEPGu7iyx0Mc1L3WNysws+T3Jn6a/mjJ1ZXavFBCMkz2dSOuhk9cM6Pt54I7xD4\nQBvkeI/CC4kQawjORhOuQ+YURDq/7KiSxIp9KMCXouf9oUhqcssdQj2Ivtab+OmB\nRmQKxk3mrypuwk2gyF03HDHoalbCtCsdz0mKEAECgYAQ+lPpvkSedbzkoaeFXW1L\ntXGwjcdVbUz+0sDII8S1K0XIYcyFsaE3hO2KL6VhEiIX3d7NC7n9TYjYU/q6maI+\nxAqNyL1zrLQX4aCBGOlnuReeWH9HErD2vjQA3A8PKxF4VqArAdqnzLxR9b99JzQB\nnMtJp5FuZ8laG7atOgVVlw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "youvit-airflow@youvit-airflow.iam.gserviceaccount.com",
+  "client_id": "116381868754207795368",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/youvit-airflow%40youvit-airflow.iam.gserviceaccount.com",
+  "universe_domain": "googleapis.com"
+}
