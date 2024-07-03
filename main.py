@@ -10,11 +10,12 @@ from langchain_openai import ChatOpenAI
 from langchain.prompts.prompt import PromptTemplate
 from langchain.agents import AgentType
 from openai import OpenAI
+import json
 
 
 # Set environment variables for Google Cloud and OpenAI
-service_account_file = "youvit-airflow-4f953fb13155.json"
-openai_api_key = os.getenv('OPENAI_API_KEY')
+service_account_file = json.loads(st.secrets["SERVICE_ACCOUNT_JSON"])
+openai_api_key = st.secrets['OPENAI_API_KEY']
 openai = OpenAI(api_key=openai_api_key)
 
 if not openai_api_key:
