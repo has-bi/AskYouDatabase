@@ -36,15 +36,12 @@ table_name2 = 'dim_secondary_target_branch'
 table_name3 = 'dim_secondary_forecast_branch'
 table_names = (table_name1, table_name2, table_name3)
 
-# SQLAlchemy connection
-engine = create_engine(
+# Create an Engine and SQLDatabaseToolkit 
+try:
+    engine = create_engine(
     f'bigquery://{project_id}/{dataset_id}',
     credentials_info=st.secrets["gcp_service_account"]
 )
-
-# Create an Engine and SQLDatabaseToolkit 
-try:
-    engine = create_engine(sqlalchemy_url)
     db = SQLDatabase(engine)
 except Exception as e:
     st.error(f"Failed to create SQLAlchemy engine: {e}")
@@ -200,5 +197,3 @@ if prompt := st.chat_input():
     st.chat_message("assistant").write(tabluar_data)
     st.session_state.messages.append({"role": "assistant", "content": descriptive_result})
     st.chat_message("assistant").write(descriptive_result)
-
-os.unlink(service_account_file)
