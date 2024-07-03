@@ -15,7 +15,7 @@ import json
 
 # Set environment variables for Google Cloud and OpenAI
 service_account_json = st.secrets["SERVICE_ACCOUNT_JSON"]
-service_account_file = json.loads(service_account_json)
+service_account_file = (service_account_json)
 openai_api_key = st.secrets['OPENAI_API_KEY']
 openai = OpenAI(api_key=openai_api_key)
 
