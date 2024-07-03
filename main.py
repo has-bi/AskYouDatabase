@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 from google.cloud import bigquery
+from google.oauth2 import service_account
 import os
 from sqlalchemy import create_engine
 from langchain_community.agent_toolkits.sql.base import create_sql_agent
@@ -16,16 +17,9 @@ import base64
 
 
 # Decode the service account info
-service_account_json = json.loads(base64.b64decode(st.secrets["SERVICE_ACCOUNT_BASE64"]).decode())
-
-# Create a temporary file to store the service account info
-with tempfile.NamedTemporaryFile(mode='w', delete=False, suffix='.json') as temp_file:
-    json.dump(service_account_json, temp_file)
-    service_account_file = temp_file.name
-    
-# Set environment variables
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = service_account_file
-
+service_account_file = service_account.Credentials.from_service_account_info(
+    st.secrets["gcp_service_account"]
+)
 # Get OpenAI API key
 openai_api_key = st.secrets['OPENAI_API_KEY']
 openai = OpenAI(api_key=openai_api_key)
