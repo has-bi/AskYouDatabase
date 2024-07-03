@@ -35,11 +35,6 @@ table_name2 = 'dim_secondary_target_branch'
 table_name3 = 'dim_secondary_forecast_branch'
 table_names = (table_name1, table_name2, table_name3)
 
-# Save service account credentials to a temporary file
-with tempfile.NamedTemporaryFile(delete=False, suffix='.json') as temp_file:
-    temp_file.write(json.dumps(service_account_info).encode())
-    service_account_file = temp_file.name
-
 # SQLAlchemy connection
 sqlalchemy_url = f'bigquery://{project_id}?credentials_path={service_account_file}'
 
