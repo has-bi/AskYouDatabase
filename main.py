@@ -11,6 +11,7 @@ from langchain.prompts.prompt import PromptTemplate
 from langchain.agents import AgentType
 from openai import OpenAI
 
+
 # Set environment variables for Google Cloud and OpenAI
 service_account_file = "youvit-airflow-4f953fb13155.json"
 openai_api_key = os.getenv('OPENAI_API_KEY')
