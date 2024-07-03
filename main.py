@@ -20,7 +20,7 @@ credentials = service_account.Credentials.from_service_account_info(
 
 # Get OpenAI API key
 openai_api_key = st.secrets['OPENAI_API_KEY']
-openai = OpenAI(api_key=openai_api_key)
+client = OpenAI(api_key=openai_api_key)
 
 if not openai_api_key:
     st.error("Please set your OpenAI API key as an environment variable.")
@@ -52,7 +52,7 @@ llm = ChatOpenAI(
     temperature=0,
     max_tokens=None,
     timeout=None,
-    openai_api_key=openai_api_key,
+    openai_api_key= st.secrets['OPENAI_API_KEY'],
     verbose= True
 )
 
@@ -176,7 +176,7 @@ if prompt := st.chat_input():
         {"role": "user", "content": response_content}
     ]
     
-    descriptive_agent = openai.chat.completions.create(
+    descriptive_agent = client.chat.completions.create(
         model="gpt-4o",
         messages=messages,
         temperature=0.3,
