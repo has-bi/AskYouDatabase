@@ -195,7 +195,6 @@ if prompt := st.chat_input():
 
 
     # Append the response and update the UI
-    st.session_state.messages.append({"role": "assistant", "content": tabular_data})
     st.chat_message("assistant").write(tabular_data)
     st.session_state.messages.append({"role": "assistant", "content": descriptive_result})
     st.chat_message("assistant").write(descriptive_result)
