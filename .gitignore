@@ -85,7 +85,7 @@ ipython_config.py
 .python-version
 
 # Streamlit
-.streamlit
+.streamlit/secrets.toml
 .toml
 
 # pipenv
