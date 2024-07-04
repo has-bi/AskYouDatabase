@@ -182,7 +182,7 @@ if prompt := st.chat_input():
 
             Keep responses concise and focused on the single most impactful insight from the data.
             '''},
-            {"role": "user", "content": response_content}
+            {"role": "user", "content": str(response_content)}
             ],
         temperature=0.3,
         max_tokens=1500,
