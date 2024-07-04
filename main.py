@@ -183,7 +183,8 @@ if prompt := st.chat_input():
         max_tokens=1500,
         top_p=1,
         frequency_penalty=0,
-        presence_penalty=0
+        presence_penalty=0,
+        stream=True
     )
     descriptive_result = descriptive_agent.choices[0].message.content.strip()
     
