@@ -11,6 +11,7 @@ from langchain_openai import ChatOpenAI
 from langchain.prompts.prompt import PromptTemplate
 from langchain.agents import AgentType
 from openai import OpenAI
+import re
 
 
 # Get the service account credentials from secrets
@@ -157,14 +158,21 @@ if prompt := st.chat_input():
     # Generate SQL query using OpenAI
     final_prompt = GOOGLESQL_PROMPT.format(input=prompt, project_id=project_id, table_info =table_names, top_k = 10000)
     response = agent_executor.invoke(final_prompt)
-    response_content = response
     
-    answer_tabular = response_content.find("Answer:")
-    if answer_tabular != -1:
-        tabular_data = response_content[answer_tabular + 7:].strip()
+    # Extract the output content
+    response_content = response.get('output', str(response))
+    
+    # Clean up the response content
+    response_content = response_content.replace('\\n','\n').replace('\\t','\t')
+    response_content = re.sub(r'\\(?![ntrf])', '', response_content)
+    
+    # Extract Answer section using regex
+    answer_match = re.search(r'Answer:(.*?)(?=\n\n|\Z)', response_content, re.DOTALL)
+    if answer_match:
+        tabular_data = answer_match.group(1).strip()
     else:
         tabular_data = "No tabular data found in the response."
-    
+            
     st.chat_message("assistant").write(tabular_data)
     
     descriptive_agent = client.chat.completions.create(
@@ -182,7 +190,7 @@ if prompt := st.chat_input():
 
             Keep responses concise and focused on the single most impactful insight from the data.
             '''},
-            {"role": "user", "content": str(response_content)}
+            {"role": "user", "content": tabular_data}
             ],
         temperature=0.3,
         max_tokens=1500,
@@ -191,7 +199,7 @@ if prompt := st.chat_input():
         presence_penalty=0,
         stream=True
     )
-    descriptive_result = str(descriptive_agent.choices[0].message.content.strip())
+    descriptive_result = descriptive_agent.choices[0].message.content.strip()
 
     # Append the response and update the UI
     st.session_state.messages.append({"role": "assistant", "content": descriptive_result})
