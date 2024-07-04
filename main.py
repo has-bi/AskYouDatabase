@@ -159,26 +159,31 @@ if prompt := st.chat_input():
     response = agent_executor.invoke(final_prompt)
     response_content = response
     
-    # Generate insight from data
-    messages = [
-        {"role": "system", "content": '''
-        Role: You are a data storyteller who transforms complex data into clear, relatable insights.
-        Task: Analyze datasets or data descriptions and present key findings concisely.
-        Instructions:
-        
-        Create a section for Key Insight, make sure it was:
-        - Provide the important insight based on the data in list or point format.
-        - Explain the key insight in a brief, comprehensive manner.
-        - Use simple language and relatable examples to make the insight accessible to all.
-
-        Keep responses concise and focused on the single most impactful insight from the data.
-        '''},
-        {"role": "user", "content": response_content}
-    ]
+    answer_tabular = response_content.find("Answer:")
+    if answer_tabular != -1:
+        tabular_data = response_content[answer_tabular + 7:].strip()
+    else:
+        tabular_data = "No tabular data found in the response."
+    
+    st.chat_message("assistant").write(tabular_data)
     
     descriptive_agent = client.chat.completions.create(
         model="gpt-4o",
-        messages=messages,
+        messages=[
+            {"role": "system", "content": '''
+             Role: You are a data storyteller who transforms complex data into clear, relatable insights.
+            Task: Analyze datasets or data descriptions and present key findings concisely.
+            Instructions:
+            
+            Create a section for Key Insight, make sure it was:
+            - Provide the important insight based on the data in list or point format.
+            - Explain the key insight in a brief, comprehensive manner.
+            - Use simple language and relatable examples to make the insight accessible to all.
+
+            Keep responses concise and focused on the single most impactful insight from the data.
+            '''},
+            {"role": "user", "content": response_content}
+            ],
         temperature=0.3,
         max_tokens=1500,
         top_p=1,
@@ -187,15 +192,7 @@ if prompt := st.chat_input():
         stream=True
     )
     descriptive_result = descriptive_agent.choices[0].message.content.strip()
-    
-    answer_tabular = response_content.find("Answer:")
-    if answer_tabular != -1:
-        tabular_data = response_content[answer_tabular + 7:].strip()
-    else:
-        tabular_data = "No tabular data found in the response."
-
 
     # Append the response and update the UI
-    st.chat_message("assistant").write(tabular_data)
     st.session_state.messages.append({"role": "assistant", "content": descriptive_result})
     st.chat_message("assistant").write(descriptive_result)
