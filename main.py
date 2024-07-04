@@ -39,7 +39,7 @@ table_names = (table_name1, table_name2, table_name3)
 # Create an Engine and SQLDatabaseToolkit 
 try:
     engine = create_engine(
-    f'bigquery://{project_id}/{dataset_id}',
+    f'bigquery://{project_id}',
     credentials_info=st.secrets["gcp_service_account"]
 )
     db = SQLDatabase(engine)
