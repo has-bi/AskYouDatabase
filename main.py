@@ -157,7 +157,7 @@ if prompt := st.chat_input():
     # Generate SQL query using OpenAI
     final_prompt = GOOGLESQL_PROMPT.format(input=prompt, project_id=project_id, table_info =table_names, top_k = 10000)
     response = agent_executor.invoke(final_prompt)
-    response_content = response
+    response_content = str(response)
     
     answer_tabular = response_content.find("Answer:")
     if answer_tabular != -1:
@@ -182,7 +182,7 @@ if prompt := st.chat_input():
 
             Keep responses concise and focused on the single most impactful insight from the data.
             '''},
-            {"role": "user", "content": str(response_content)}
+            {"role": "user", "content": response_content}
             ],
         temperature=0.3,
         max_tokens=1500,
