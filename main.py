@@ -156,7 +156,7 @@ if prompt := st.chat_input():
 
     # Generate SQL query using OpenAI
     final_prompt = GOOGLESQL_PROMPT.format(input=prompt, project_id=project_id, table_info =table_names, top_k = 10000)
-    response = agent_executor.run(final_prompt)
+    response = agent_executor.invoke(final_prompt)
     response_content = response
     
     # Generate insight from data
